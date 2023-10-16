@@ -1,13 +1,13 @@
+from clientes import listar_todos_clientes
+
+
 def mostra_menu_principal():
     print('1. Submenu de clientes')
     print('2. Submenu de produtos')
     print('3. Submenu de compra/venda')
     print('4. Submenu de relatórios')
     print('5. Sair')
-
-def mostra_traco():
-    print('--' * 25)
-
+    
 
 def mostra_submenu_clientes():
     print('1. Listar todos os clientes')
@@ -21,10 +21,31 @@ def mostra_submenu_clientes():
     while opcao_submenu_clientes < 1 or opcao_submenu_clientes > 5:
         print('Opção inválida. Tente novamente.')
         opcao_submenu_clientes = int(input('Digite uma opção: '))
+
+    print('--' * 25)
     
+    if opcao_submenu_clientes == 1:
+        listar_todos_clientes(dicionario_clientes)
 
     
 
+dicionario_clientes = {'1': 
+                       ['José', 
+                        '06/12/2021', 
+                        'M', 
+                        1280, 
+                        ['jose@gmail.com', 'jose@hotmail.com'],
+                        ['16980234151', '1691723810']
+                        ],
+                        '2': [
+                            'Maria',
+                            '01/03/2004',
+                            'F',
+                            1325,
+                            ['maria@gmail.com', 'maria@hotmail.com'],
+                            ['16192748', '161868129']
+                        ]
+                    }
 
 def main():
     opcao = 0
@@ -35,7 +56,7 @@ def main():
             print('Opção inválida. Tente novamente.')
             opcao = int(input('Digite uma opção: '))
 
-        mostra_traco()
+        print('--' * 25)
 
         if opcao == 1:
             mostra_submenu_clientes()
