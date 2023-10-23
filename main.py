@@ -1,4 +1,4 @@
-from clientes import listar_todos_clientes, listar_um_cliente
+from clientes import incluir_um_cliente, listar_todos_clientes, listar_um_cliente
 
 
 def mostra_menu_principal():
@@ -29,6 +29,9 @@ def mostra_submenu_clientes():
     
     elif opcao_submenu_clientes == 2:
         listar_um_cliente(dicionario_clientes)
+    
+    elif opcao_submenu_clientes == 3:
+        incluir_um_cliente(dicionario_clientes)
 
     
 

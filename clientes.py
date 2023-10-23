@@ -52,3 +52,41 @@ def listar_um_cliente(dicionario_clientes: dict):
 
         print()
         print('--' * 25)
+
+def incluir_um_cliente(dicionario_clientes: dict):
+    cpf = str(input('Digite o cpf do cliente que gostaria de inserir: '))
+
+    ja_esta_cadastrado = dicionario_clientes.get(cpf)
+
+    while ja_esta_cadastrado:
+        cpf = str(input('Digite o cpf do cliente que gostaria de inserir: '))
+        ja_esta_cadastrado = dicionario_clientes.get(cpf)
+    
+    # TODO validar informações
+    nome = str(input('Nome: ')).strip().title()
+    data_de_nascimento = str(input('Data de nascimento [dd/mm/aaaa]: ')).strip()
+    sexo = str(input('Sexo [M/F]: ')).strip().upper()
+    salario = float(input('Salário: '))
+    emails = []
+    telefones = []
+
+    print('--' * 25)
+
+    email = str(input('Email [Pressione ENTER para parar a inserção]: '))
+    while email != "":
+        emails.append(email)
+        email = str(input('Email [Pressione ENTER para parar a inserção]: '))
+    
+    print('--' * 25)
+    
+    telefone = str(input('Telefone [Pressione ENTER para parar a inserção]: '))
+    while telefone != "":
+        telefones.append(telefone)
+        telefone = str(input('Telefone [Pressione ENTER para parar a inserção]: '))
+
+    print('--' * 25)
+    
+    dicionario_clientes[cpf] = [nome, data_de_nascimento, sexo, salario, emails, telefones]
+
+    print('Cliente adicionado com sucesso!')
+    print('--' * 25)
