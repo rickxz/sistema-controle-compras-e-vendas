@@ -165,3 +165,24 @@ def alterar_um_cliente(dicionario_clientes: dict):
     
     print('Dados do cliente alterados com sucesso!')
     print('--' * 25)
+
+def excluir_um_cliente(dicionario_clientes: dict):
+    cpf = str(input('Digite o cpf do cliente que quer excluir: ')).strip()
+    dados_cliente = dicionario_clientes.get(cpf)
+
+    while not dados_cliente:
+        print('CPF não encontrado. Tente novamente.')
+        cpf = str(input('Digite o cpf do cliente que deseja alterar: ')).strip()
+        dados_cliente = dicionario_clientes.get(cpf)
+
+    nome = dados_cliente[0]
+    
+    confirmacao = str(input(f'Você tem certeza que deseja excluir o registro do cliente {nome}? [S/N]: ')).strip().upper()
+
+    if confirmacao == 'S':
+        del dicionario_clientes[cpf]
+
+        print(f'Cliente {nome} excluído com sucesso!')
+    else:
+        print('Operação cancelada.')
+    print('--' * 25)
