@@ -15,16 +15,16 @@ def listar_todas_compras_vendas(dicionario_compra_venda: dict):
         print('--' * 25)
 
 def listar_uma_compra_venda(dicionario_compra_venda: dict):
-    cpf_cliente = str(input('Digite o CPF do cliente que deseja listar uma compra/venda: '))
-    codigo_produto = str(input('Digite o código do produto que deseja listar uma compra/venda: '))
-    data = str(input('Digite a data da compra/venda que deseja listar: '))
-    hora = str(input('Digite a hora da compra/venda que deseja listar: '))
+    cpf_cliente = str(input('Digite o CPF do cliente da compra/venda que deseja listar: ')).strip()
+    codigo_produto = str(input('Digite o código do produto da compra/venda que deseja listar: ')).strip().upper()
+    data = str(input('Digite a data da compra/venda que deseja listar: ')).strip()
+    hora = int(input('Digite a hora da compra/venda que deseja listar: '))
 
     chave_dicionario = (cpf_cliente, codigo_produto, data, hora)
 
     dados_compra_venda = dicionario_compra_venda.get(chave_dicionario)
     if not dados_compra_venda:
-        print('Dados da compra e venda não encontrados. Tente novamente.')
+        print('Dados da compra e venda não encontrados.')
     else:
         valor = dicionario_compra_venda[chave_dicionario]
         print(f'CPF do cliente: {cpf_cliente}')
@@ -38,11 +38,11 @@ def listar_uma_compra_venda(dicionario_compra_venda: dict):
 def incluir_uma_compra_venda(dicionario_compra_venda: dict):
     # TODO Validar as informações
     
-    cpf_cliente = str(input('Digite o CPF do cliente: '))
-    codigo_produto = str(input('Digite o código do produto: '))
-    data = str(input('Digite a data da compra/venda: '))
-    hora = str(input('Digite a hora da compra/venda: '))
-    valor = str(input('Digite o valor da compra/venda: '))
+    cpf_cliente = str(input('Digite o CPF do cliente: ')).strip()
+    codigo_produto = str(input('Digite o código do produto: ')).strip().upper()
+    data = str(input('Digite a data da compra/venda: ')).strip()
+    hora = int(input('Digite a hora da compra/venda: '))
+    valor = float(input('Digite o valor da compra/venda: ')).strip()
 
     chave_dicionario = (cpf_cliente, codigo_produto, data, hora)
 
@@ -51,3 +51,22 @@ def incluir_uma_compra_venda(dicionario_compra_venda: dict):
     print('Compra/venda inserida com sucesso!')
     print(dicionario_compra_venda)
 
+def alterar_uma_compra_venda(dicionario_compra_venda: dict):
+    cpf_cliente = str(input('Digite o CPF do cliente da compra/venda que deseja alterar: ')).strip()
+    codigo_produto = str(input('Digite o código do produto da compra/venda que deseja alterar: ')).strip().upper()
+    data = str(input('Digite a data da compra/venda que deseja alterar: ')).strip()
+    hora = int(input('Digite a hora da compra/venda que deseja alterar: '))
+
+    chave_dicionario = (cpf_cliente, codigo_produto, data, hora)
+
+    dados_compra_venda = dicionario_compra_venda.get(chave_dicionario)
+    if not dados_compra_venda:
+        print('Dados da compra e venda não encontrados.')
+    else:
+        valor = dicionario_compra_venda[chave_dicionario]
+        novo_valor = float(input(f'Digite o novo valor da compra [Valor atual: R$ {valor}]: '))
+        dicionario_compra_venda[chave_dicionario] = novo_valor
+        
+        print('Compra/venda alterada com sucesso!')
+
+    print('--' * 25)

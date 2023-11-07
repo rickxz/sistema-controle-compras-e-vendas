@@ -1,4 +1,4 @@
-from compras_vendas import incluir_uma_compra_venda, listar_todas_compras_vendas, listar_uma_compra_venda
+from compras_vendas import alterar_uma_compra_venda, incluir_uma_compra_venda, listar_todas_compras_vendas, listar_uma_compra_venda
 from clientes import alterar_um_cliente, excluir_um_cliente, incluir_um_cliente, listar_todos_clientes, listar_um_cliente
 
 
@@ -66,11 +66,11 @@ def mostra_submenu_compra_venda():
         incluir_uma_compra_venda(dicionario_compra_venda)
 
     elif opcao_submenu_compra_venda == 4:
-        pass
-    
+        alterar_uma_compra_venda(dicionario_compra_venda)
+
     elif opcao_submenu_compra_venda == 5:
         pass
-    
+
 
 dicionario_clientes = {'1': 
                        ['José', 
