@@ -1,5 +1,6 @@
 from compras_vendas import alterar_uma_compra_venda, excluir_uma_compra_venda, incluir_uma_compra_venda, listar_todas_compras_vendas, listar_uma_compra_venda
 from clientes import alterar_um_cliente, excluir_um_cliente, incluir_um_cliente, listar_todos_clientes, listar_um_cliente
+from relatorios import relatorio_clientes
 
 
 def mostra_menu_principal():
@@ -40,6 +41,21 @@ def mostra_submenu_clientes():
     elif opcao_submenu_clientes == 5:
         excluir_um_cliente(dicionario_clientes)
 
+def mostra_submenu_relatorios():
+    print('1. Listar os clientes que possuem mais do que X telefones.')
+    print('2. Listar os produtos que já tiveram sua data de validade vencida.')
+    print('3. Listar compras/vendas em um determinado intervalo de tempo.')
+
+    opcao_submenu_relatorios = int(input('Digite uma opção: '))
+
+    while opcao_submenu_relatorios < 1 or opcao_submenu_relatorios > 3:
+        print('Opção inválida. Tente novamente.')
+        opcao_submenu_relatorios = int(input('Digite uma opção: '))
+    
+    print('--' * 25)
+
+    if opcao_submenu_relatorios == 1:
+        relatorio_clientes(dicionario_clientes)
 
 def mostra_submenu_compra_venda():
     print('1. Listar todos as compras/vendas')
@@ -112,6 +128,8 @@ def main():
             pass
         elif opcao == 3:
             mostra_submenu_compra_venda()
+        elif opcao == 4:
+            mostra_submenu_relatorios()
 
     
 main()
