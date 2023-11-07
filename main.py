@@ -1,5 +1,6 @@
 from clientes import alterar_um_cliente, incluir_um_cliente, listar_todos_clientes, listar_um_cliente
-
+from produtos import listar_todos_produtos
+from produtos import listar_um_produto,incluir_um_produto
 
 def mostra_menu_principal():
     print('1. Submenu de clientes')
@@ -56,6 +57,31 @@ dicionario_clientes = {'1':
                         ]
                     }
 
+dicionario_produtos = {'1':
+                       ['creme',
+                        15,
+                        0.50,
+                        0,
+                        '19/2025'
+                        ]}
+
+def submenu_produtos():
+    print('1. Listar todos os produtos')
+    print('2. Listar um produto')
+    print('3. Incluir um produto')
+    print('4. Alterar um produto')
+    print('5. Excluir um produto')
+
+    opcao_submenu_produtos= int(input('Digite uma opção: '))
+    if opcao_submenu_produtos == 1:
+        listar_todos_produtos(dicionario_produtos)
+    elif opcao_submenu_produtos == 2:
+        listar_um_produto(dicionario_produtos)
+    elif opcao_submenu_produtos == 3:
+        incluir_um_produto(dicionario_produtos)
+            
+
+
 def main():
     opcao = 0
     while opcao != 5:
@@ -69,6 +95,8 @@ def main():
 
         if opcao == 1:
             mostra_submenu_clientes()
+        elif opcao == 2:
+            submenu_produtos()
 
     
 main()
