@@ -70,3 +70,25 @@ def alterar_uma_compra_venda(dicionario_compra_venda: dict):
         print('Compra/venda alterada com sucesso!')
 
     print('--' * 25)
+
+def excluir_uma_compra_venda(dicionario_compra_venda: dict):
+    cpf_cliente = str(input('Digite o CPF do cliente da compra/venda que deseja excluir: ')).strip()
+    codigo_produto = str(input('Digite o código do produto da compra/venda que deseja excluir: ')).strip().upper()
+    data = str(input('Digite a data da compra/venda que deseja excluir: ')).strip()
+    hora = int(input('Digite a hora da compra/venda que deseja excluir: '))
+
+    chave_dicionario = (cpf_cliente, codigo_produto, data, hora)
+
+    dados_compra_venda = dicionario_compra_venda.get(chave_dicionario)
+    if not dados_compra_venda:
+        print('Dados da compra e venda não encontrados.')
+    else:
+        confirmacao = str(input(f'Você tem certeza que deseja excluir esse registro? [S/N]: ')).strip().upper()
+
+        if confirmacao == 'S':
+            del dicionario_compra_venda[chave_dicionario]
+            print('Compra/venda excluída com sucesso!')
+        else:
+            print('Operação cancelada.')
+    
+    print('--' * 25)

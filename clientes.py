@@ -172,7 +172,7 @@ def excluir_um_cliente(dicionario_clientes: dict):
 
     while not dados_cliente:
         print('CPF não encontrado. Tente novamente.')
-        cpf = str(input('Digite o cpf do cliente que deseja alterar: ')).strip()
+        cpf = str(input('Digite o cpf do cliente que deseja excluir: ')).strip()
         dados_cliente = dicionario_clientes.get(cpf)
 
     nome = dados_cliente[0]
