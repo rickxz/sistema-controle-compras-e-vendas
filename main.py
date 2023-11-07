@@ -1,3 +1,4 @@
+from compras_vendas import incluir_uma_compra_venda, listar_todas_compras_vendas, listar_uma_compra_venda
 from clientes import alterar_um_cliente, excluir_um_cliente, incluir_um_cliente, listar_todos_clientes, listar_um_cliente
 
 
@@ -39,6 +40,36 @@ def mostra_submenu_clientes():
     elif opcao_submenu_clientes == 5:
         excluir_um_cliente(dicionario_clientes)
 
+
+def mostra_submenu_compra_venda():
+    print('1. Listar todos as compras/vendas')
+    print('2. Listar uma compra/venda')
+    print('3. Incluir uma compra/venda')
+    print('4. Alterar uma compra/venda')
+    print('5. Excluir uma compra/venda')
+
+    opcao_submenu_compra_venda = int(input('Digite uma opção: '))
+
+    while opcao_submenu_compra_venda < 1 or opcao_submenu_compra_venda > 5:
+        print('Opção inválida. Tente novamente.')
+        opcao_submenu_compra_venda = int(input('Digite uma opção: '))
+
+    print('--' * 25)
+    
+    if opcao_submenu_compra_venda == 1:
+        listar_todas_compras_vendas(dicionario_compra_venda)
+    
+    elif opcao_submenu_compra_venda == 2:
+        listar_uma_compra_venda(dicionario_compra_venda)
+    
+    elif opcao_submenu_compra_venda == 3:
+        incluir_uma_compra_venda(dicionario_compra_venda)
+
+    elif opcao_submenu_compra_venda == 4:
+        pass
+    
+    elif opcao_submenu_compra_venda == 5:
+        pass
     
 
 dicionario_clientes = {'1': 
@@ -59,6 +90,11 @@ dicionario_clientes = {'1':
                         ]
                     }
 
+dicionario_compra_venda = {
+    ('1', '1', '06/11/2023', 23): 30,
+    ('2', '2', '05/11/2023', 24): 31,
+}
+
 def main():
     opcao = 0
     while opcao != 5:
@@ -72,6 +108,10 @@ def main():
 
         if opcao == 1:
             mostra_submenu_clientes()
+        elif opcao == 2:
+            pass
+        elif opcao == 3:
+            mostra_submenu_compra_venda()
 
     
 main()
