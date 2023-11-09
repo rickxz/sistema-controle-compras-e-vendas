@@ -32,3 +32,25 @@ def relatorio_clientes(dicionario_clientes: dict):
 
     if contagem_clientes == 0:
         print(f'Nenhum cliente possui mais de {quantia_telefones} telefones.')
+
+def relatorio_compras_e_vendas(dicionario_clientes: dict, dicionario_produtos: dict, dicionario_compra_venda: dict):
+    data_inicio = str(input('Digite a data de início (dd/mm/aaaa): '))
+    data_fim = str(input('Digite a data de fim (dd/mm/aaaa): '))
+
+    for compra_venda in dicionario_compra_venda.keys():
+        data_compra_venda = compra_venda[2]
+        if data_inicio < data_compra_venda and data_fim > data_compra_venda:
+            cpf_cliente = compra_venda[0]
+            nome_cliente = dicionario_clientes[cpf_cliente][0]
+            codigo_produto = compra_venda[1]
+            descricao_produto = dicionario_produtos[codigo_produto][0]
+            hora = compra_venda[3]
+            valor = dicionario_compra_venda[compra_venda]
+
+            print('--' * 25)
+            print(f'Cliente: {nome_cliente}')
+            print(f'Produto: {descricao_produto}')
+            print(f'Valor: R${valor:.2f}')
+            print(f'Data: {data_compra_venda}')
+            print(f'Hora: {hora}')
+            
