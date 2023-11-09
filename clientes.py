@@ -1,3 +1,5 @@
+from utils import validar_cpf, validar_data, validar_nome, validar_salario, validar_sexo
+
 def listar_todos_clientes(dicionario_clientes: dict):
     for cliente in dicionario_clientes.keys():
         cpf = cliente
@@ -23,9 +25,13 @@ def listar_todos_clientes(dicionario_clientes: dict):
         print()
         print('--' * 25)
 
-
 def listar_um_cliente(dicionario_clientes: dict):
-    cpf = str(input('Digite o cpf do cliente que gostaria de procurar: ')).strip()
+    cpf = str(input('Digite o cpf do cliente que gostaria de procurar [xxx.xxx.xxx-xx]: ')).strip()
+
+    while not validar_cpf(cpf):
+        print('CPF inválido. Tente novamente.')
+        cpf = str(input('Digite o cpf do cliente que gostaria de procurar [xxx.xxx.xxx-xx]: ')).strip()
+
     dados_cliente = dicionario_clientes.get(cpf)
 
     if not dados_cliente:
@@ -54,7 +60,11 @@ def listar_um_cliente(dicionario_clientes: dict):
         print('--' * 25)
 
 def incluir_um_cliente(dicionario_clientes: dict):
-    cpf = str(input('Digite o cpf do cliente que gostaria de inserir: '))
+    cpf = str(input('Digite o cpf do cliente que gostaria de inserir [xxx.xxx.xxx-xx]: '))
+    
+    while not validar_cpf(cpf):
+        print('CPF inválido. Tente novamente.')
+        cpf = str(input('Digite o cpf do cliente que gostaria de inserir [xxx.xxx.xxx-xx]: '))
 
     ja_esta_cadastrado = dicionario_clientes.get(cpf)
 
@@ -63,11 +73,31 @@ def incluir_um_cliente(dicionario_clientes: dict):
         cpf = str(input('Digite o cpf do cliente que gostaria de inserir: '))
         ja_esta_cadastrado = dicionario_clientes.get(cpf)
     
-    # TODO validar informações
     nome = str(input('Nome: ')).strip().title()
+
+    while not validar_nome(nome):
+        print('Nome inválido. Tente novamente.')
+        nome = str(input('Nome: ')).strip().title()
+
     data_de_nascimento = str(input('Data de nascimento [dd/mm/aaaa]: ')).strip()
+
+    while not validar_data(data_de_nascimento):
+        print('Data inválida. Tente novamente.')
+        data_de_nascimento = str(input('Data de nascimento [dd/mm/aaaa]: ')).strip()
+
     sexo = str(input('Sexo [M/F]: ')).strip().upper()
+
+    while not validar_sexo(sexo):
+        print('Sexo inválido. Tente novamente.')
+        sexo = str(input('Sexo [M/F]: ')).strip().upper()
+
     salario = float(input('Salário: '))
+
+    while not validar_salario(salario):
+        print('Salário inválido. Tente novamente.')
+        salario = float(input('Salário: '))
+
+
     emails = []
     telefones = []
 
@@ -130,16 +160,28 @@ def alterar_um_cliente(dicionario_clientes: dict):
 
     if novo_nome == '':
         novo_nome = nome
-    
+    else:
+        while not validar_nome(novo_nome):
+            print('Nome inválido. Tente novamente.')
+            novo_nome = str(input('Digite o novo nome do cliente [Pressione ENTER para não alterar]: '))
+        
     nova_data_de_nascimento = str(input('Digite a nova data de nascimento do cliente [Pressione ENTER para não alterar]: '))
 
     if nova_data_de_nascimento == '':
         nova_data_de_nascimento = data_de_nascimento
+    else:
+        while not validar_data(nova_data_de_nascimento):
+            print('Data inválida. Tente novamente.')
+            nova_data_de_nascimento = str(input('Digite a nova data de nascimento do cliente [Pressione ENTER para não alterar]: '))
 
     novo_sexo = str(input('Digite o novo sexo do cliente [M/F] [Pressione ENTER para não alterar]: '))
 
     if novo_sexo == '':
         novo_sexo = sexo
+    else:
+        while not validar_sexo(novo_sexo):
+            print('Sexo inválido. Tente novamente.')
+            novo_sexo = str(input('Digite o novo sexo do cliente [M/F] [Pressione ENTER para não alterar]: '))
     
     novo_salario = str(input('Digite o novo salário do cliente [Pressione ENTER para não alterar]: '))
 
@@ -147,6 +189,10 @@ def alterar_um_cliente(dicionario_clientes: dict):
         novo_salario = salario
     else:
         novo_salario = float(salario)
+        while not validar_salario(novo_salario):
+            print('Salário inválido. Tente novamente.')
+            novo_salario = str(input('Digite o novo salário do cliente [Pressione ENTER para não alterar]: '))
+            novo_salario = float(salario)
     
     for i in range(len(emails)):
         quer_alterar = str(input(f'Você deseja alterar o email "{emails[i]}"? [S/N]: '))
@@ -167,7 +213,12 @@ def alterar_um_cliente(dicionario_clientes: dict):
     print('--' * 25)
 
 def excluir_um_cliente(dicionario_clientes: dict):
-    cpf = str(input('Digite o cpf do cliente que quer excluir: ')).strip()
+    cpf = str(input('Digite o cpf do cliente que quer excluir [xxx.xxx.xxx-xx]: ')).strip()
+
+    while not validar_cpf(cpf):
+        print('CPF inválido. Tente novamente.')
+        cpf = str(input('Digite o cpf do cliente que quer excluir [xxx.xxx.xxx-xx]: ')).strip()
+
     dados_cliente = dicionario_clientes.get(cpf)
 
     while not dados_cliente:
