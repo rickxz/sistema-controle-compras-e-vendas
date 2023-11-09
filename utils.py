@@ -1,3 +1,5 @@
+from datetime import date
+
 def validar_cpf(cpf: str):
     if len(cpf) != 14:
         return False
@@ -42,11 +44,20 @@ def validar_data(data: str):
         return False
     if ano < 1900:
         return False
+    
+    data_usuario = f'{dia}/{mes}/{ano}'
+    hoje = date.today().strftime('%d/%m/%Y')
+
+    if data_usuario > hoje:
+        return False
 
     return True
 
 def validar_sexo(sexo: str):
     return sexo == 'M' or sexo == 'F'
 
-def validar_salario(salario: float):
+def validar_valor(salario: float):
     return salario < 0
+
+def validar_hora(hora: int):
+    return hora >= 0 and hora <= 23

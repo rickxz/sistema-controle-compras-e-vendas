@@ -1,4 +1,4 @@
-from utils import validar_cpf, validar_data, validar_nome, validar_salario, validar_sexo
+from utils import validar_cpf, validar_data, validar_nome, validar_valor, validar_sexo
 
 def listar_todos_clientes(dicionario_clientes: dict):
     for cliente in dicionario_clientes.keys():
@@ -93,7 +93,7 @@ def incluir_um_cliente(dicionario_clientes: dict):
 
     salario = float(input('Salário: '))
 
-    while not validar_salario(salario):
+    while not validar_valor(salario):
         print('Salário inválido. Tente novamente.')
         salario = float(input('Salário: '))
 
@@ -189,7 +189,7 @@ def alterar_um_cliente(dicionario_clientes: dict):
         novo_salario = salario
     else:
         novo_salario = float(salario)
-        while not validar_salario(novo_salario):
+        while not validar_valor(novo_salario):
             print('Salário inválido. Tente novamente.')
             novo_salario = str(input('Digite o novo salário do cliente [Pressione ENTER para não alterar]: '))
             novo_salario = float(salario)
