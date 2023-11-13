@@ -1,4 +1,4 @@
-from utils import validar_cpf, validar_data, validar_nome, validar_valor, validar_sexo
+from utils import atualizar_arquivo_clientes, validar_cpf, validar_data, validar_nome, validar_valor, validar_sexo
 
 def listar_todos_clientes(dicionario_clientes: dict):
     for cliente in dicionario_clientes.keys():
@@ -70,7 +70,7 @@ def incluir_um_cliente(dicionario_clientes: dict):
 
     while ja_esta_cadastrado:
         print('CPF já cadastrado. Tente novamente.')
-        cpf = str(input('Digite o cpf do cliente que gostaria de inserir: '))
+        cpf = str(input('Digite o cpf do cliente que gostaria de inserir [xxx.xxx.xxx-xx]: '))
         ja_esta_cadastrado = dicionario_clientes.get(cpf)
     
     nome = str(input('Nome: ')).strip().title()
@@ -118,18 +118,24 @@ def incluir_um_cliente(dicionario_clientes: dict):
     print('--' * 25)
     
     dicionario_clientes[cpf] = [nome, data_de_nascimento, sexo, salario, emails, telefones]
+    atualizar_arquivo_clientes(dicionario_clientes)
 
     print('Cliente adicionado com sucesso!')
     print('--' * 25)
 
+
 def alterar_um_cliente(dicionario_clientes: dict):
-    cpf = str(input('Digite o cpf do cliente que deseja alterar: ')).strip()
+    cpf = str(input('Digite o cpf do cliente que deseja alterar [xxx.xxx.xxx-xx]: ')).strip()
+
+    while not validar_cpf(cpf):
+        print('CPF inválido. Tente novamente.')
+        cpf = str(input('Digite o cpf do cliente que deseja alterar [xxx.xxx.xxx-xx]: ')).strip()
 
     dados_cliente = dicionario_clientes.get(cpf)
 
     while not dados_cliente:
         print('CPF não encontrado. Tente novamente.')
-        cpf = str(input('Digite o cpf do cliente que deseja alterar: ')).strip()
+        cpf = str(input('Digite o cpf do cliente que deseja alterar [xxx.xxx.xxx-xx]: ')).strip()
         dados_cliente = dicionario_clientes.get(cpf)
     
     nome = dados_cliente[0]
@@ -155,7 +161,6 @@ def alterar_um_cliente(dicionario_clientes: dict):
     print()
     print('--' * 25)
 
-    # TODO validar informações
     novo_nome = str(input('Digite o novo nome do cliente [Pressione ENTER para não alterar]: '))
 
     if novo_nome == '':
@@ -188,29 +193,40 @@ def alterar_um_cliente(dicionario_clientes: dict):
     if novo_salario == '':
         novo_salario = salario
     else:
-        novo_salario = float(salario)
+        novo_salario = float(novo_salario)
         while not validar_valor(novo_salario):
             print('Salário inválido. Tente novamente.')
             novo_salario = str(input('Digite o novo salário do cliente [Pressione ENTER para não alterar]: '))
-            novo_salario = float(salario)
+            novo_salario = float(novo_salario)
     
     for i in range(len(emails)):
-        quer_alterar = str(input(f'Você deseja alterar o email "{emails[i]}"? [S/N]: '))
+        quer_alterar = str(input(f'Você deseja alterar o email "{emails[i]}"? [S/N]: ')).upper().strip()
+        while quer_alterar != 'S' and quer_alterar != 'N':
+            print('Opção inválida. Tente novamente.')
+            quer_alterar = str(input(f'Você deseja alterar o email "{emails[i]}"? [S/N]: ')).upper().strip()
+
         if quer_alterar == 'S':
             email = str(input('Digite o novo email: '))
             emails[i] = email
     
     for i in range(len(telefones)):
         quer_alterar = str(input(f'Você deseja alterar o telefone "{telefones[i]}"? [S/N]: ')).upper().strip()
+        while quer_alterar != 'S' and quer_alterar != 'N':
+            print('Opção inválida. Tente novamente.')
+            print(quer_alterar)
+            quer_alterar = str(input(f'Você deseja alterar o telefone "{telefones[i]}"? [S/N]: ')).upper().strip()
+
         if quer_alterar == 'S':
             telefone = str(input('Digite o novo telefone: '))
             telefones[i] = telefone
 
-    cliente_atualizado = [nome, data_de_nascimento, sexo, salario, emails, telefones]
+    cliente_atualizado = [novo_nome, nova_data_de_nascimento, novo_sexo, novo_salario, emails, telefones]
     dicionario_clientes[cpf] = cliente_atualizado
-    
+    atualizar_arquivo_clientes(dicionario_clientes)
+
     print('Dados do cliente alterados com sucesso!')
     print('--' * 25)
+
 
 def excluir_um_cliente(dicionario_clientes: dict):
     cpf = str(input('Digite o cpf do cliente que quer excluir [xxx.xxx.xxx-xx]: ')).strip()
@@ -223,7 +239,7 @@ def excluir_um_cliente(dicionario_clientes: dict):
 
     while not dados_cliente:
         print('CPF não encontrado. Tente novamente.')
-        cpf = str(input('Digite o cpf do cliente que deseja excluir: ')).strip()
+        cpf = str(input('Digite o cpf do cliente que deseja excluir [xxx.xxx.xxx-xx]: ')).strip()
         dados_cliente = dicionario_clientes.get(cpf)
 
     nome = dados_cliente[0]
@@ -232,6 +248,7 @@ def excluir_um_cliente(dicionario_clientes: dict):
 
     if confirmacao == 'S':
         del dicionario_clientes[cpf]
+        atualizar_arquivo_clientes(dicionario_clientes)
 
         print(f'Cliente {nome} excluído com sucesso!')
     else:
